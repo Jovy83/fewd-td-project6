@@ -5,10 +5,12 @@ const startButton = document.querySelector('.btn__reset');
 const overlayDiv = document.querySelector('#overlay');
 const overlayTitle = document.querySelector('.title');
 const qwertyDiv = document.querySelector('#qwerty');
+const buttons = document.querySelectorAll('button');
 const phraseDiv = document.querySelector('#phrase');
 const phraseUL = phraseDiv.firstElementChild;
 const scoreboardDiv = document.querySelector('#scoreboard');
 const scoreboardOL = scoreboardDiv.firstElementChild;
+const lives = document.querySelectorAll('.tries').length;
 
 // integers
 const maxNumberOfGuesses = 5;
@@ -27,6 +29,9 @@ const phrases = [
 startButton.addEventListener('click', () => {
   // hide the start screen overlay
   setElementDisplay(overlayDiv, 'none');
+
+  // reset game
+  resetGame();
 
   // setup the game
   setupGame();
@@ -55,6 +60,44 @@ qwertyDiv.addEventListener('click', (e) => {
 });
 
 // functions
+function resetGame() {
+  // reset the keyboard
+  for(let i = 0; i < buttons.length; i++) {
+    const button = buttons[i];
+    button.removeAttribute('class');
+    button.disabled = false;
+  }
+
+  // reset the phrase
+  while(phraseUL.lastElementChild) {
+    phraseUL.removeChild(phraseUL.lastElementChild);
+  }
+
+  // remove all lives
+  while(scoreboardOL.lastElementChild) {
+    scoreboardOL.removeChild(scoreboardOL.lastElementChild);
+  }
+
+  // re-add lives back to 5
+  for(let i = 0; i < maxNumberOfGuesses; i++) {
+    const life = document.createElement('li');
+    life.className = 'tries';
+
+    const lifeImage = document.createElement('img');
+    lifeImage.src = 'images/liveHeart.png';
+    lifeImage.style.height = '35px';
+    lifeImage.style.width = '30px';
+
+    life.appendChild(lifeImage);
+    scoreboardOL.appendChild(life);
+  }
+
+  // reset number of misses to 0
+  missedGuesses = 0;
+}
+
+// TODO: verofy the html with a validator after the game resets
+
 function setupGame() {
   const formattedPhrase = getFormattedPhrase(phrases);
   addPhraseToDisplay(formattedPhrase);
@@ -118,8 +161,6 @@ function subtractLife() {
 }
 
 function checkWin() {
-  // TODO: FIGURE OUT HOW TO SET THE GAME AGAIN
-
   const numberOfShownLetters = document.querySelectorAll('.show').length;
   const numberOfLetters = document.querySelectorAll('.letter').length;
   if (numberOfShownLetters === numberOfLetters) {
