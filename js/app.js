@@ -125,8 +125,7 @@ function checkWin() {
   if (numberOfShownLetters === numberOfLetters) {
     // player won
     showGameResults(true);
-  }
-  else if (missedGuesses >= maxNumberOfGuesses) {
+  } else if (missedGuesses >= maxNumberOfGuesses) {
     // player lost
     showGameResults(false);
   }
