@@ -96,8 +96,6 @@ function resetGame() {
   missedGuesses = 0;
 }
 
-// TODO: verofy the html with a validator after the game resets
-
 function setupGame() {
   const formattedPhrase = getFormattedPhrase(phrases);
   addPhraseToDisplay(formattedPhrase);
