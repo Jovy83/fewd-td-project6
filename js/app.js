@@ -10,7 +10,6 @@ const phraseDiv = document.querySelector('#phrase');
 const phraseUL = phraseDiv.firstElementChild;
 const scoreboardDiv = document.querySelector('#scoreboard');
 const scoreboardOL = scoreboardDiv.firstElementChild;
-const lives = document.querySelectorAll('.tries').length;
 
 // integers
 const maxNumberOfGuesses = 5;
